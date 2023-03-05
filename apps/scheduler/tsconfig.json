@@ -1,0 +1,5 @@
+{
+  "extends": "tsconfig/standalone.json",
+  "include": ["./"],
+  "exclude": ["node_modules"]
+}

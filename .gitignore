@@ -34,3 +34,6 @@ yarn-error.log*
 
 # database
 packages/database/prisma/dev.db
+
+# dist
+dist/

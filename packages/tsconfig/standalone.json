@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "display": "Standalone",
+  "extends": "./base.json",
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "Node16",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "noUnusedLocals": true,
+    "strict": true,
+    "skipLibCheck": true,
+    "noImplicitAny": true,
+    "forceConsistentCasingInFileNames": true,
+    "noEmit": true,
+    "allowUnreachableCode": false,
+    "removeComments": true,
+    "allowSyntheticDefaultImports": true
+  },
+  "ts-node": {
+    "swc": true
+  },
+  "include": ["**/*.ts"],
+  "exclude": ["node_modules"]
+}
