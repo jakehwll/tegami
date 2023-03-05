@@ -10,7 +10,22 @@ datasource db {
   url      = "file:./dev.db"
 }
 
-model feed {
-  id String @id
-  url String 
+model Feed {
+  id      String  @id
+  name    String
+  url     String
+  website String
+  entries Entry[]
+}
+
+model Category {
+  id   String @id
+  name String
+}
+
+model Entry {
+  id     String @id
+  name   String
+  feedId String
+  feed   Feed   @relation(fields: [feedId], references: [id], onDelete: Cascade)
 }

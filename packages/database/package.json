@@ -1,10 +1,10 @@
 {
   "name": "database",
   "dependencies": {
-    "@prisma/client": "latest"
+    "@prisma/client": "^4.5.0"
   },
   "devDependencies": {
-    "prisma": "latest"
+    "prisma": "^4.5.0"
   },
   "scripts": {
     "db:generate": "prisma generate",
