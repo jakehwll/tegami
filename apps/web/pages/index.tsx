@@ -18,12 +18,14 @@ const Index = () => {
           (
             <article key={v.id}>
               <h2>
-                <Link href={v.url}>{v.title}</Link>
+                <Link href={v.url} target={"_blank"}>{v.title}</Link>
               </h2>
               <p>{v.feed.name} - {formatDistanceToNow(utcToZonedTime(new Date(v.published), 'Australia/Sydney'))} ago</p>
               <Button>Unread</Button>
               <Button>Star</Button>
-              <Button>External link</Button>
+              <Link href={v.url} target={"_blank"}>
+                <Button>External link</Button>
+              </Link>
             </article>
           )
         )
