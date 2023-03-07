@@ -1,6 +1,7 @@
 import type { AppProps } from 'next/app'
 import { Navigation } from 'ui'
 import { trpc } from '../utils/trpc'
+import '../styles/global.css'
 
 function Tegami({ Component, pageProps: { session, ...pageProps } }: AppProps) {
   return (
@@ -11,8 +12,6 @@ function Tegami({ Component, pageProps: { session, ...pageProps } }: AppProps) {
         "History": "/history",
         "Feeds": "/feeds",
         "Categories": "/categories",
-        "Settings": "/settings",
-        "Logout": "/logout"
       }} />
       <Component {...pageProps} />
     </>

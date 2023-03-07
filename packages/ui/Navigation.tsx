@@ -1,4 +1,5 @@
 import Link from "next/link"
+import styles from './Navigation.module.css'
 
 interface NavigationProps {
     items: {
@@ -7,13 +8,17 @@ interface NavigationProps {
 }
 
 export const Navigation = ({ items }: NavigationProps) => {
-    return <ul>
-      {Object.entries(items).map(([key, value]) => (
-        <li key={key}>
-          <Link href={value} passHref>
-            {key}
-          </Link>
-        </li>
-      ))}
-    </ul>
+    return <>
+      <nav className={styles.root}>
+        <ul className={styles.navigation}>
+          {Object.entries(items).map(([key, value], index) => (
+            <li key={key} className={index === 0 ? styles.active : null}>
+              <Link href={value} passHref>
+                {key}
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </nav>
+    </>
 }

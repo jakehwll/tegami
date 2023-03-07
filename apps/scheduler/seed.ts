@@ -2,14 +2,14 @@ import database from "./util/database";
 
 const seed = async () => {
   const feed = {
-    url: "https://www.news.com.au/content-feeds/latest-news-technology/",
-    name: "News.com.au",
-    website: "https://www.news.com.au/technology",
-    lastPublished: new Date(),
+    feedUrl: "https://guya.cubari.moe/read/other/rss/Kaguya-Wants-To-Be-Confessed-To",
+    name: "Kaguya-sama: Love is War",
+    siteUrl: "https://guya.moe/read/manga/Kaguya-Wants-To-Be-Confessed-To/",
+    publishedAt: new Date(0),
   };
   await database.feed.upsert({
     where: {
-      url: feed.url,
+      feedUrl: feed.feedUrl,
     },
     update: feed,
     create: feed,

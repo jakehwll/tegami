@@ -14,11 +14,10 @@
     "@trpc/next": "^10.14.0",
     "@trpc/react-query": "^10.14.0",
     "@trpc/server": "^10.14.0",
-    "date-fns": "^2.29.3",
-    "date-fns-tz": "^2.0.0",
     "next": "^13.1.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-feather": "^2.0.10",
     "ui": "*",
     "zod": "^3.21.4"
   },

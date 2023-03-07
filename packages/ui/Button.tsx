@@ -1,8 +1,22 @@
+import styles from './Button.module.css'
+import { Icon } from 'react-feather'
+
 type ButtonProps = {
+  startIcon?: React.ReactNode,
+  endIcon?: React.ReactNode,
   children?: React.ReactNode,
-  type?: 'button' | 'submit'
+  type?: 'button' | 'submit',
+  onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void
 }
 
-export const Button = ({ children, type }: ButtonProps) => {
-  return <button type={type ?? 'button'}>{children}</button>;
+export const Button = ({ children, type, startIcon, endIcon, onClick }: ButtonProps) => {
+  return <>
+    <button className={styles.root} onClick={onClick} type={type ?? 'button'}>
+      <>
+        {startIcon && startIcon}
+        {children}
+        {endIcon && endIcon}
+      </>
+    </button>
+  </>;
 };
