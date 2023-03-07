@@ -8,22 +8,23 @@ const scrape = async () => {
   (async () => {
 
     feeds.forEach(async (feed) => {
-      let externalFeed = await parser.parseURL(feed.url);
+      let externalFeed = await parser.parseURL(feed.feedUrl);
       
       const created = await Promise.all(
         externalFeed.items.map(async (item) => {
           if (
             !item.isoDate ||
-            new Date(item.isoDate) <= feed.lastPublished
+            new Date(item.isoDate) <= feed.publishedAt
           ) {
             return;
           }
           return await database.entry.create({
             data: {
-              name: item.title,
+              title: item.title,
               description: item.description,
               published: new Date(item.isoDate),
               feedId: feed.id,
+              url: item.link ?? '',
             },
           });
         })
@@ -38,12 +39,12 @@ const scrape = async () => {
         if ( !lastPost ) return
         await database.feed.update({
           where: {
-            id: feed.id
+            id: feed.id,
           },
           data: {
-            lastPublished: lastPost.published
-          }
-        })
+            publishedAt: lastPost.published,
+          },
+        });
       }
     });
 
