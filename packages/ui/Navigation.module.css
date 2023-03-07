@@ -23,13 +23,14 @@
 }
 
 .navigation li {
-    padding: .5rem 1rem;
     color: #858699;
     position: relative;
+    transition: .25s ease;
 }
 
 .navigation li:hover {
     color: #ffffff;
+    transition: .25s ease;
 }
 
 .navigation li.active {
@@ -49,4 +50,9 @@
     height: 50%;
     background: #2c2d3c;
     transform: translate(-0%, -50%);
+}
+
+.navigation li a {
+    display: block;
+    padding: .5rem 1rem;
 }
