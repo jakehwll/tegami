@@ -7,6 +7,7 @@ const entry = router({
       orderBy: {
         published: "desc",
       },
+      take: 10,
       include: {
         feed: {
           select: {
