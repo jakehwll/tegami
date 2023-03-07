@@ -11,21 +11,24 @@ datasource db {
 }
 
 model Feed {
-  id      String  @id
+  id      Int     @id @default(autoincrement())
   name    String
-  url     String
+  url     String  @unique
   website String
   entries Entry[]
+  lastPublished DateTime
 }
 
 model Category {
-  id   String @id
+  id   Int    @id @default(autoincrement())
   name String
 }
 
 model Entry {
-  id     String @id
-  name   String
-  feedId String
-  feed   Feed   @relation(fields: [feedId], references: [id], onDelete: Cascade)
+  id          Int      @id @default(autoincrement())
+  name        String?
+  description String?
+  feedId      Int
+  feed        Feed     @relation(fields: [feedId], references: [id], onDelete: Cascade)
+  published   DateTime
 }
