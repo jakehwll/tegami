@@ -21,4 +21,4 @@ const database = new PrismaClient({
   ],
 });
 
-export default 'database'
+export default database

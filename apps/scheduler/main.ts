@@ -10,8 +10,6 @@ const scrape = async () => {
     feeds.forEach(async (feed) => {
       let externalFeed = await parser.parseURL(feed.url);
       
-      console.log(externalFeed)
-
       const created = await Promise.all(
         externalFeed.items.map(async (item) => {
           if (
