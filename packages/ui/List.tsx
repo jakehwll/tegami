@@ -1,18 +1,20 @@
 import { Button } from "ui";
 import Card from "ui/Card";
-import Container from "ui/Container";
-import Typography from "ui/Typography";
-import { trpc } from "api";
 import styles from './List.module.css'
 import { Fragment } from "react";
+import type { trpc } from "api";
 
-const List = () => {
+interface ListProps {
+  trpc: typeof trpc,
+}
+
+const List = ({ trpc }: ListProps) => {
   const { data, hasNextPage, fetchNextPage } = trpc.entry.list.useInfiniteQuery(
     {
       limit: 10,
     },
     {
-      getNextPageParam: (lastPage) => lastPage.nextCursor,
+      getNextPageParam: (lastPage: any) => lastPage.nextCursor,
     }
   );
 
@@ -20,11 +22,10 @@ const List = () => {
     return <></>
   
   return data ? (
-    <Container>
-      <Typography>Unread</Typography>
-      {data.pages.map((group, i) => (
+    <>
+      {data.pages.map((group:any, i:any) => (
         <Fragment key={i}>
-          {group.entries.map((entry) => (
+          {group.entries.map((entry:any) => (
             <Card key={entry.id} {...entry} />
           ))}
         </Fragment>
@@ -34,7 +35,7 @@ const List = () => {
           <Button onClick={() => fetchNextPage()}>Load more</Button>
         </footer>
       )}
-    </Container>
+    </>
   ) : (
     <p>Loading...</p>
   )
