@@ -1,6 +1,6 @@
 import type { AppProps } from 'next/app'
 import { Navigation } from 'ui'
-import { trpc } from '../utils/trpc'
+import { trpc } from '../../../packages/api/util/trpc'
 import '../styles/global.css'
 import { SessionProvider } from "next-auth/react"
 

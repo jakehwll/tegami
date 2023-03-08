@@ -3,7 +3,6 @@ import { useState } from "react"
 import { Button } from "ui/Button"
 import Container from "ui/Container"
 import Typography from "ui/Typography"
-import { trpc } from "../../utils/trpc"
 
 const Login = () => {
   const [username, setUsername] = useState('')
