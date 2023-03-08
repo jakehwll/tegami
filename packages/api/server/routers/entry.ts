@@ -1,6 +1,18 @@
 import database from "../../utils/database";
 import { procedure, router } from "../trpc";
 import * as z from 'zod'
+import { Prisma } from ".prisma/client";
+
+export enum FILTERS_TYPES { 'unread', 'starred', 'history' }
+type FILTERS_PROPS = {
+  [key in FILTERS_TYPES]: Prisma.EntryFindManyArgs;
+};
+
+const FILTERS: FILTERS_PROPS = {
+  [FILTERS_TYPES.unread]: {},
+  [FILTERS_TYPES.starred]: {},
+  [FILTERS_TYPES.history]: {},
+};
 
 const entry = router({
   list: procedure
@@ -8,6 +20,7 @@ const entry = router({
       z.object({
         limit: z.number().min(1).max(100).nullish(),
         cursor: z.number().nullish(),
+        filter: z.nativeEnum(FILTERS_TYPES).default(FILTERS_TYPES.unread),
       })
     )
     .query(async ({ input }) => {
