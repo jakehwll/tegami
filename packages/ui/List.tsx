@@ -2,13 +2,9 @@ import { Button } from "ui";
 import Card from "ui/Card";
 import styles from './List.module.css'
 import { Fragment } from "react";
-import type { trpc } from "api";
+import { trpc } from 'api/trpc'
 
-interface ListProps {
-  trpc: typeof trpc,
-}
-
-const List = ({ trpc }: ListProps) => {
+const List = () => {
   const { data, hasNextPage, fetchNextPage } = trpc.entry.list.useInfiniteQuery(
     {
       limit: 10,

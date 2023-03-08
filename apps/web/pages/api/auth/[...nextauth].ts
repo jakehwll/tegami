@@ -1,7 +1,7 @@
+import database from "api/utils/database";
 import { verify } from "argon2";
 import NextAuth, { User } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
-import database from "../../../utils/database";
 
 export const authOptions = {
   providers: [
