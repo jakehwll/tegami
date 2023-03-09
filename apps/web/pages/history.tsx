@@ -1,6 +1,4 @@
-import Container from "ui/Container"
-import List from "ui/List"
-import Typography from "ui/Typography"
+import { Container, List, Typography } from "ui"
 
 const History = () => {
   return <>

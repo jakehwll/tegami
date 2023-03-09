@@ -2,7 +2,7 @@ import type { AppProps } from 'next/app'
 import { trpc } from 'api/trpc'
 import '../styles/global.css'
 import { SessionProvider } from "next-auth/react"
-import Header from 'ui/Header'
+import { Header } from "ui"
 import { signOut } from "next-auth/react"
 
 function Tegami({ Component, pageProps: { session, ...pageProps } }: AppProps) {

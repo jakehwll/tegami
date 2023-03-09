@@ -1,5 +1,4 @@
-import { Button } from "ui";
-import Card from "ui/Card";
+import { Button, Card } from "ui";
 import styles from './List.module.css'
 import { Fragment } from "react";
 import { trpc } from 'api/trpc'
@@ -37,4 +36,4 @@ const List = () => {
   )
 }
 
-export default List
+export { List }

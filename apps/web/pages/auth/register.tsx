@@ -1,7 +1,7 @@
 import { useState } from "react"
-import { Button } from "ui/Button"
-import Container from "ui/Container"
-import Typography from "ui/Typography"
+import { Button } from "ui"
+import Container from "ui"
+import Typography from "ui"
 import { trpc } from "api/trpc"
 
 const Register = () => {

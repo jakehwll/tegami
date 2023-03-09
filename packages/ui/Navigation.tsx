@@ -8,7 +8,7 @@ interface NavigationProps {
     }
 }
 
-export const Navigation = ({ items }: NavigationProps) => {
+const Navigation = ({ items }: NavigationProps) => {
   const router = useRouter()
   const { pathname } = router
 
@@ -25,3 +25,5 @@ export const Navigation = ({ items }: NavigationProps) => {
     </ul>
   )
 }
+
+export { Navigation }

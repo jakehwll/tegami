@@ -38,4 +38,4 @@ const Header = ({ signOut }: { signOut(): void }) => {
   )
 }
 
-export default Header
+export { Header }

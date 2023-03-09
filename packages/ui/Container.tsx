@@ -8,4 +8,4 @@ const Container = ({ children }: ContainerProps) => {
     return <div className={styles.root}>{children}</div>
 }
 
-export default Container
+export { Container }

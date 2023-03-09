@@ -1,8 +1,6 @@
 import { signIn } from "next-auth/react"
 import { useState } from "react"
-import { Button } from "ui/Button"
-import Container from "ui/Container"
-import Typography from "ui/Typography"
+import { Button, Container, Typography } from "ui"
 
 const Login = () => {
   const [username, setUsername] = useState('')

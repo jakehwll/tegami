@@ -8,7 +8,7 @@ type ButtonProps = {
   onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void
 }
 
-export const Button = ({ children, type, startIcon, endIcon, onClick }: ButtonProps) => {
+const Button = ({ children, type, startIcon, endIcon, onClick }: ButtonProps) => {
   return <>
     <button className={styles.root} onClick={onClick} type={type ?? 'button'}>
       <>
@@ -19,3 +19,5 @@ export const Button = ({ children, type, startIcon, endIcon, onClick }: ButtonPr
     </button>
   </>;
 };
+
+export { Button }

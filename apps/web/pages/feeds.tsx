@@ -1,5 +1,4 @@
-import Container from "ui/Container"
-import Typography from "ui/Typography"
+import { Container, Typography } from "ui"
 
 const Feeds = () => {
   return <>

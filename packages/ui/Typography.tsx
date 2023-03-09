@@ -10,4 +10,4 @@ const Typography = ({ children }: TypographyProps) => {
     </header>
 }
 
-export default Typography
+export { Typography }

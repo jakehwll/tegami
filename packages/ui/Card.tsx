@@ -56,4 +56,4 @@ const Card = ({ id, title, description, url, published, feed }: CardProps) => {
     </>
 }
 
-export default Card
+export { Card }
