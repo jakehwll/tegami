@@ -17,7 +17,7 @@ const Login = () => {
       <div>
         <input placeholder={"Password"} type={'password'} onChange={(event) => setPassword(event.target.value)} />
       </div>
-      <Button onClick={() => signIn('credentials', { username, password })}>
+      <Button onClick={() => signIn('credentials', { username, password, callbackUrl: `${process.env.NEXTAUTH_URL ?? 'http://localhost:3000'}/unread` })}>
         Login
       </Button>
     </Container>

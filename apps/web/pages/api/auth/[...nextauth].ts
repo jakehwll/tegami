@@ -1,9 +1,13 @@
 import database from "api/utils/database";
 import { verify } from "argon2";
-import NextAuth, { User } from "next-auth";
+import NextAuth, { AuthOptions, User } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 
-export const authOptions = {
+export const authOptions: AuthOptions = {
+  pages: {
+    signIn: "/auth/login",
+  },
+  secret: process.env.NEXTAUTH_SECRET ?? "secret",
   providers: [
     CredentialsProvider({
       name: "Credentials",
@@ -14,19 +18,22 @@ export const authOptions = {
       async authorize(credentials) {
         const account = await database.account.findFirst({
           where: {
-            username: credentials?.username
-          }
-        })
+            username: credentials?.username,
+          },
+        });
 
-        if ( account && await verify(account.password, credentials?.password ?? '') ) {
+        if (
+          account &&
+          (await verify(account.password, credentials?.password ?? ""))
+        ) {
           const user: User = {
             id: account.id.toString(),
           };
           return user;
         } else {
-          return null
+          return null;
         }
-      }
+      },
     }),
   ],
 };
