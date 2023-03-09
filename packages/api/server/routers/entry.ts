@@ -23,6 +23,23 @@ const entry = router({
         filter: z.nativeEnum(FILTERS_TYPES).default(FILTERS_TYPES.unread),
       })
     )
+    .output(
+      z.object({
+        entries: z.array(
+          z.object({
+            id: z.number(),
+            title: z.string().nullable(),
+            description: z.string().nullable(),
+            published: z.date(),
+            url: z.string(),
+            feed: z.object({
+              name: z.string()
+            })
+          })
+        ),
+        nextCursor: z.number().nullish(),
+      })
+    )
     .query(async ({ input }) => {
       const limit = input.limit ?? 10;
       const { cursor } = input;

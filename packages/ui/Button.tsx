@@ -1,5 +1,4 @@
 import styles from './Button.module.css'
-import { Icon } from 'react-feather'
 
 type ButtonProps = {
   startIcon?: React.ReactNode,

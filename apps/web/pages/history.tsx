@@ -5,7 +5,7 @@ import Typography from "ui/Typography"
 const History = () => {
   return <>
     <Container>
-      <Typography>Unread</Typography>
+      <Typography>History</Typography>
       <List />
     </Container>
   </>

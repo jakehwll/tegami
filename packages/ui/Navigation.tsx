@@ -13,17 +13,15 @@ export const Navigation = ({ items }: NavigationProps) => {
   const { pathname } = router
 
 
-  return <>
-    <nav className={styles.root}>
-      <ul className={styles.navigation}>
-        {Object.entries(items).map(([key, value], index) => (
-          <li key={key} className={pathname.match(`${value}[\/a-zA-Z]?.*`) ? styles.active : null}>
-            <Link href={value} passHref>
-              {key}
-            </Link>
-          </li>
-        ))}
-      </ul>
-    </nav>
-  </>
+  return (
+    <ul className={styles.root}>
+      {Object.entries(items).map(([key, value], index) => (
+        <li key={key} className={pathname.match(`${value}[\/a-zA-Z]?.*`) ? styles.active : ''}>
+          <Link href={value} passHref>
+            {key}
+          </Link>
+        </li>
+      ))}
+    </ul>
+  )
 }
