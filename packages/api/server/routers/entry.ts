@@ -1,5 +1,5 @@
 import database from "../../utils/database";
-import { procedure, router } from "../trpc";
+import { authedProcedure, router } from "../trpc";
 import * as z from 'zod'
 import { Prisma } from ".prisma/client";
 
@@ -15,7 +15,7 @@ const FILTERS: FILTERS_PROPS = {
 };
 
 const entry = router({
-  list: procedure
+  list: authedProcedure
     .input(
       z.object({
         limit: z.number().min(1).max(100).nullish(),

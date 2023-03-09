@@ -2,7 +2,7 @@ import { useState } from "react"
 import { Button } from "ui/Button"
 import Container from "ui/Container"
 import Typography from "ui/Typography"
-import { trpc } from "api"
+import { trpc } from "api/trpc"
 
 const Register = () => {
   const register = trpc.auth.register.useMutation()
