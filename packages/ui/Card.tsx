@@ -50,7 +50,7 @@ const Card = ({ id, title, description, url, published, feed, metadata }: CardPr
       </main>
       <footer className={styles.footer}>
         <div className={styles.buttonGroup}>
-          <Button onClick={() => metadataMutate.mutateAsync({ id: id, read: !metadata.read })} startIcon={metadata.read ? <Eye size={14} /> : <EyeOff size={14} />}>{metadata.read ? 'Read' : 'Unread'}</Button>
+          <Button onClick={() => metadataMutate.mutateAsync({ id: id, read: !metadata.read })} startIcon={metadata.read ? <EyeOff size={14} /> : <Eye size={14} />}>{metadata.read ? 'Mark as Unread' : 'Mark as Read'}</Button>
           <Button onClick={() => metadataMutate.mutateAsync({ id: id, starred: !metadata.starred })} startIcon={<Star size={14} fill={metadata.starred ? 'currentColor' : 'none'} />}>{metadata.starred ? 'Starred' : 'Star'}</Button>
           <Link href={url} target={"_blank"}>
             <Button endIcon={<ExternalLink size={14} />}>External link</Button>
