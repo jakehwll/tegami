@@ -2,11 +2,17 @@ import { Button, Card } from "ui";
 import styles from './List.module.css'
 import { Fragment } from "react";
 import { trpc } from 'api/trpc'
+import { FILTERS_TYPES } from "api/utils/filters";
 
-const List = () => {
+interface ListProps {
+  filter: FILTERS_TYPES
+}
+
+const List = ({ filter }: ListProps) => {
   const { data, hasNextPage, fetchNextPage } = trpc.entry.list.useInfiniteQuery(
     {
       limit: 10,
+      filter: filter
     },
     {
       getNextPageParam: (lastPage: any) => lastPage.nextCursor,

@@ -38,14 +38,14 @@ model Entry {
   published   DateTime
   updatedAt   DateTime?  @updatedAt
   createdAt   DateTime?  @default(now())
-  progress    Progress[]
+  metadata    Metadata[]
 }
 
 model User {
   id       Int        @id @unique @default(autoincrement())
   timeZone String
   account  Account?
-  progress Progress[]
+  metadata Metadata[]
 }
 
 model Account {
@@ -56,12 +56,15 @@ model Account {
   user     User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
-model Progress {
-  id      Int   @id @unique @default(autoincrement())
+model Metadata {
   userId  Int
   entryId Int
   user    User  @relation(fields: [userId], references: [id], onDelete: Cascade)
   entry   Entry @relation(fields: [entryId], references: [id], onDelete: Cascade)
 
+  read    Boolean @default(false)
+  starred Boolean @default(false)
+
   @@index([userId, entryId])
+  @@unique([userId, entryId])
 }

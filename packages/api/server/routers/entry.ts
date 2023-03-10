@@ -1,17 +1,41 @@
 import database from "../../utils/database";
 import { authedProcedure, router } from "../trpc";
 import * as z from 'zod'
-import { Prisma } from ".prisma/client";
-
-export enum FILTERS_TYPES { 'unread', 'starred', 'history' }
-type FILTERS_PROPS = {
-  [key in FILTERS_TYPES]: Prisma.EntryFindManyArgs;
-};
+import { FILTERS_PROPS, FILTERS_TYPES } from "../../utils/filters";
 
 const FILTERS: FILTERS_PROPS = {
-  [FILTERS_TYPES.unread]: {},
-  [FILTERS_TYPES.starred]: {},
-  [FILTERS_TYPES.history]: {},
+  [FILTERS_TYPES.unread]: {
+    OR: [
+      // find where there isn't `read` metadata.
+      {
+        metadata: {
+          some: {
+            read: false,
+          },
+        },
+      },
+      // find where there isn't any metadata at all.
+      {
+        metadata: {
+          none: {},
+        },
+      },
+    ],
+  },
+  [FILTERS_TYPES.starred]: {
+    metadata: {
+      some: {
+        starred: true,
+      },
+    },
+  },
+  [FILTERS_TYPES.history]: {
+    metadata: {
+      some: {
+        read: true,
+      },
+    },
+  },
 };
 
 const entry = router({
@@ -34,6 +58,10 @@ const entry = router({
             url: z.string(),
             feed: z.object({
               name: z.string()
+            }),
+            metadata: z.object({
+              read: z.boolean(),
+              starred: z.boolean()
             })
           })
         ),
@@ -47,12 +75,10 @@ const entry = router({
       const entries = await database.entry.findMany({
         take: limit + 1,
         cursor: cursor ? { id: cursor } : undefined,
+        where: FILTERS[input.filter],
         include: {
-          feed: {
-            select: {
-              name: true,
-            },
-          },
+          feed: true,
+          metadata: true,
         },
         orderBy: {
           createdAt: "asc",
@@ -66,7 +92,16 @@ const entry = router({
       }
 
       return {
-        entries,
+        entries: entries.map((v) => ({
+          ...v,
+          metadata: 
+            v.metadata.length
+              ? v.metadata[0]
+              : {
+                  read: false,
+                  starred: false,
+                }
+        })),
         nextCursor,
       };
     }),
