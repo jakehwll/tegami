@@ -1,4 +1,3 @@
-import { TRPCError } from "@trpc/server"
 import * as z from "zod"
 import database from "../../utils/database"
 import { authedProcedure, router } from "../trpc"
@@ -13,29 +12,27 @@ const metadata = router({
       }),
     )
     .mutation(async ({ ctx, input }) => {
-      if (!ctx.session || !ctx.session.user)
-        throw new TRPCError({ code: "UNAUTHORIZED" })
-      const userId = ctx.session?.user.email
+      const userId = ctx.session!.user!.id
 
       const { id: entryId, read, starred } = input
 
       const result = await database.metadata.upsert({
         where: {
           userId_entryId: {
-            userId: 2,
+            userId,
             entryId,
           },
         },
         update: { read, starred },
         create: {
-          userId: 2,
+          userId,
           entryId,
           read,
           starred,
         },
       })
 
-      console.log("rezult", result)
+      console.log(result)
 
       return result
     }),

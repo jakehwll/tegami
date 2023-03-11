@@ -1,41 +1,48 @@
 import * as z from "zod"
 import database from "../../utils/database"
-import { FilterVariants, FilterVariantsType } from "../../utils/filters"
+import { FilterVariants } from "../../utils/filters"
 import { authedProcedure, router } from "../trpc"
 
-const FilterWhere: FilterVariantsType = {
-  [FilterVariants.unread]: {
-    OR: [
-      // find where there isn't `read` metadata.
-      {
-        metadata: {
-          some: {
-            read: false,
+const FilterWhere = (userId: number) => {
+  return {
+    [FilterVariants.unread]: {
+      OR: [
+        // find where there isn't `read` metadata.
+        {
+          metadata: {
+            some: {
+              userId,
+              read: false,
+            },
           },
         },
-      },
-      // find where there isn't any metadata at all.
-      {
-        metadata: {
-          none: {},
+        // find where there isn't any metadata at all.
+        {
+          metadata: {
+            none: {
+              userId,
+            },
+          },
+        },
+      ],
+    },
+    [FilterVariants.starred]: {
+      metadata: {
+        some: {
+          userId,
+          starred: true,
         },
       },
-    ],
-  },
-  [FilterVariants.starred]: {
-    metadata: {
-      some: {
-        starred: true,
+    },
+    [FilterVariants.history]: {
+      metadata: {
+        some: {
+          userId,
+          read: true,
+        },
       },
     },
-  },
-  [FilterVariants.history]: {
-    metadata: {
-      some: {
-        read: true,
-      },
-    },
-  },
+  }
 }
 
 const entry = router({
@@ -68,14 +75,15 @@ const entry = router({
         nextCursor: z.number().nullish(),
       }),
     )
-    .query(async ({ input }) => {
+    .query(async ({ ctx, input }) => {
+      const userId = ctx.session!.user!.id
       const limit = input.limit ?? 10
       const { cursor } = input
 
       const entries = await database.entry.findMany({
         take: limit + 1,
         cursor: cursor ? { id: cursor } : undefined,
-        where: FilterWhere[input.filter],
+        where: FilterWhere(userId)[input.filter],
         include: {
           feed: true,
           metadata: true,

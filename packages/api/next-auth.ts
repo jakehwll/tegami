@@ -27,7 +27,7 @@ export const authOptions: AuthOptions = {
           (await verify(account.password, credentials?.password ?? ""))
         ) {
           const user: User = {
-            id: account.id.toString(),
+            id: account.id ?? "asdf",
           }
           return user
         } else {
@@ -36,4 +36,19 @@ export const authOptions: AuthOptions = {
       },
     }),
   ],
+  callbacks: {
+    async jwt({ token, user, account }) {
+      if (user)
+        token.user = {
+          id: typeof user.id === "string" ? parseInt(user.id) : user.id,
+        }
+      return token
+    },
+    async session({ session, token }) {
+      session.user = {
+        id: token.user.id,
+      }
+      return session
+    },
+  },
 }
