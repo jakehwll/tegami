@@ -1,11 +1,11 @@
 import { Prisma } from "database";
 
-export enum FILTERS_TYPES {
+export enum FilterVariants {
   "unread",
   "starred",
   "history",
 }
 
-export type FILTERS_PROPS = {
-  [key in FILTERS_TYPES]: Prisma.EntryWhereInput;
+export type FilterVariantsType = {
+  [key in FilterVariants]: Prisma.EntryWhereInput;
 };

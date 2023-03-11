@@ -1,10 +1,10 @@
 import database from "../../utils/database";
 import { authedProcedure, router } from "../trpc";
 import * as z from 'zod'
-import { FILTERS_PROPS, FILTERS_TYPES } from "../../utils/filters";
+import { FilterVariantsType, FilterVariants } from "../../utils/filters";
 
-const FILTERS: FILTERS_PROPS = {
-  [FILTERS_TYPES.unread]: {
+const FilterWhere: FilterVariantsType = {
+  [FilterVariants.unread]: {
     OR: [
       // find where there isn't `read` metadata.
       {
@@ -22,14 +22,14 @@ const FILTERS: FILTERS_PROPS = {
       },
     ],
   },
-  [FILTERS_TYPES.starred]: {
+  [FilterVariants.starred]: {
     metadata: {
       some: {
         starred: true,
       },
     },
   },
-  [FILTERS_TYPES.history]: {
+  [FilterVariants.history]: {
     metadata: {
       some: {
         read: true,
@@ -44,7 +44,7 @@ const entry = router({
       z.object({
         limit: z.number().min(1).max(100).nullish(),
         cursor: z.number().nullish(),
-        filter: z.nativeEnum(FILTERS_TYPES).default(FILTERS_TYPES.unread),
+        filter: z.nativeEnum(FilterVariants).default(FilterVariants.unread),
       })
     )
     .output(
@@ -75,13 +75,13 @@ const entry = router({
       const entries = await database.entry.findMany({
         take: limit + 1,
         cursor: cursor ? { id: cursor } : undefined,
-        where: FILTERS[input.filter],
+        where: FilterWhere[input.filter],
         include: {
           feed: true,
           metadata: true,
         },
         orderBy: {
-          createdAt: "asc",
+          id: "asc",
         },
       });
 

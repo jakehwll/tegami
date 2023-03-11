@@ -2,10 +2,10 @@ import { Button, Card } from "ui";
 import styles from './List.module.css'
 import { Fragment } from "react";
 import { trpc } from 'api/trpc'
-import { FILTERS_TYPES } from "api/utils/filters";
+import { FilterVariants } from "api/utils/filters";
 
 interface ListProps {
-  filter: FILTERS_TYPES
+  filter: FilterVariants
 }
 
 const List = ({ filter }: ListProps) => {

@@ -1,0 +1,12 @@
+.root {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.root th td {
+    border: 1px solid red;
+}
+
+.root th td {
+    border-top-left-radius: .45rem;
+}
