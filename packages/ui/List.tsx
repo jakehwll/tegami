@@ -18,9 +18,6 @@ const List = ({ filter }: ListProps) => {
       getNextPageParam: (lastPage: any) => lastPage.nextCursor,
     }
   );
-
-  if (!data)
-    return <></>
   
   return data ? (
     <>
@@ -37,9 +34,7 @@ const List = ({ filter }: ListProps) => {
         </footer>
       )}
     </>
-  ) : (
-    <p>Loading...</p>
-  )
+  ) : <></>
 }
 
 export { List }

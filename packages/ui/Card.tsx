@@ -4,7 +4,6 @@ import Link from "next/link"
 import { Button } from "./Button"
 import styles from './Card.module.css'
 import { Globe, Eye, EyeOff, Clock, Star, ExternalLink } from 'react-feather';
-import { useState } from "react"
 import { trpc } from "api/trpc"
 
 interface CardProps {

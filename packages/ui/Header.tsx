@@ -4,6 +4,7 @@ import styles from './Header.module.css'
 import { Rss } from 'react-feather';
 import Link from "next/link";
 import { Button } from "./Button";
+import { ArrowRight } from 'react-feather';
 
 const Header = ({ signOut }: { signOut(): void }) => {
   const { data: session } = useSession()
@@ -25,7 +26,10 @@ const Header = ({ signOut }: { signOut(): void }) => {
         )}
       </nav>
       {session ? (
-        <Button onClick={() => signOut()}>
+        <Button
+          endIcon={<ArrowRight size={14} />}
+          onClick={() => signOut()}
+        >
           Sign Out
         </Button>
       ) : (

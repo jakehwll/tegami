@@ -12,7 +12,6 @@ const Navigation = ({ items }: NavigationProps) => {
   const router = useRouter()
   const { pathname } = router
 
-
   return (
     <ul className={styles.root}>
       {Object.entries(items).map(([key, value], index) => (
