@@ -1,5 +1,7 @@
 # 💌 tegami
 
+> **Warning** Tegami is in a development-status. Nothing is guaranteed to be working. Use at your own risk.
+
 Tegami enables you to set up RSS-feed scraping and reading.
 
 ## Quickstart
