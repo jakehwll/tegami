@@ -1,0 +1,33 @@
+# Based on the following Github Action.
+# https://github.com/ahmetozer/github-actions-multi-arch-container-ghcr.io
+
+name: Build Images
+
+on:
+  push:
+    branches: [main, development]
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Build Images
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push'
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Container Repository
+        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login https://ghcr.io -u ${{ github.actor }} --password-stdin
+
+      - name: Build and Publish
+        run: |
+          IMAGE_ID=$(echo ghcr.io/${{ github.repository }} | tr '[A-Z]' '[a-z]')
+          VERSION=$(echo "${{ github.ref }}" | sed -e 's,.*/\(.*\),\1,')
+          [[ "${{ github.ref }}" == "refs/tags/"* ]] && VERSION=$(echo $VERSION | sed -e 's/^v//')
+          [ "$VERSION" == "main" ] && VERSION=latest
+          echo IMAGE_ID=$IMAGE_ID
+          echo VERSION=$VERSION
+          docker build --tag $IMAGE_ID:$VERSION .
+          docker push $IMAGE_ID:$VERSION
