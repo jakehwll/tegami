@@ -1,4 +1,4 @@
-import { PrismaClient } from "database";
+import { PrismaClient } from "database"
 
 const database = new PrismaClient({
   log: [
@@ -19,6 +19,6 @@ const database = new PrismaClient({
       level: "warn",
     },
   ],
-});
+})
 
 export default database

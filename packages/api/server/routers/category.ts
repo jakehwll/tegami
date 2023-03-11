@@ -1,6 +1,6 @@
-import database from "../../utils/database";
-import * as z from "zod";
-import { authedProcedure, router } from "../trpc";
+import * as z from "zod"
+import database from "../../utils/database"
+import { authedProcedure, router } from "../trpc"
 
 const category = router({
   list: authedProcedure
@@ -10,13 +10,13 @@ const category = router({
         z.object({
           id: z.number(),
           name: z.string(),
-        })
-      )
+        }),
+      ),
     )
     .query(async () => {
-      const feed = await database.feed.findMany({});
-      return feed;
+      const feed = await database.feed.findMany({})
+      return feed
     }),
-});
+})
 
-export { category };
+export { category }

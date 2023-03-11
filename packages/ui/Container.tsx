@@ -1,11 +1,11 @@
-import styles from './Container.module.css'
+import styles from "./Container.module.css"
 
 interface ContainerProps {
-    children?: React.ReactNode
+  children?: React.ReactNode
 }
 
 const Container = ({ children }: ContainerProps) => {
-    return <div className={styles.root}>{children}</div>
+  return <div className={styles.root}>{children}</div>
 }
 
 export { Container }

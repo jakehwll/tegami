@@ -1,50 +1,50 @@
 .root {
-    border-radius: .45rem;
-    background: #191a23;
-    border: 1px solid #2c2d3c;
-    box-shadow: 0px 2px 2px 1px rgba(0,0,0,0.05);
-    margin: 1rem;
+  border-radius: 0.45rem;
+  background: #191a23;
+  border: 1px solid #2c2d3c;
+  box-shadow: 0px 2px 2px 1px rgba(0, 0, 0, 0.05);
+  margin: 1rem;
 }
 
 .title {
-    font-size: 1.25rem;
-    font-weight: 500;
+  font-size: 1.25rem;
+  font-weight: 500;
 }
 
 .site {
-    margin: 0rem 0rem .75rem 0rem;
-    display: inline-flex;
-    align-items: center;
-    gap: .5rem;
-    font-weight: 500;
+  margin: 0rem 0rem 0.75rem 0rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 500;
 }
 
 .body {
-    padding: 1.5rem 2rem;
+  padding: 1.5rem 2rem;
 }
 
 .description {
-    margin: .75rem 0rem 0rem 0rem;
+  margin: 0.75rem 0rem 0rem 0rem;
 }
 
 .footer {
-    border-top: 1px solid #2c2d3c;
-    border-radius: 0rem 0rem .45rem .45rem;
-    background: #21232e;
-    padding: .75rem 1.5rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  border-top: 1px solid #2c2d3c;
+  border-radius: 0rem 0rem 0.45rem 0.45rem;
+  background: #21232e;
+  padding: 0.75rem 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .buttonGroup {
-    display: inline-flex;
-    align-items: center;
-    gap: .5rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
 .ago {
-    display: flex;
-    align-items: center;
-    gap: .5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }

@@ -1,18 +1,18 @@
-import { router } from "../trpc";
-import { auth } from "./auth";
-import { category } from "./category";
-import { entry } from "./entry";
-import { feed } from "./feed";
-import { metadata } from "./metadata";
+import { router } from "../trpc"
+import { auth } from "./auth"
+import { category } from "./category"
+import { entry } from "./entry"
+import { feed } from "./feed"
+import { metadata } from "./metadata"
 
 const routes = {
   auth,
   category,
   entry,
   feed,
-  metadata
-};
+  metadata,
+}
 
-export const appRouter = router(routes);
+export const appRouter = router(routes)
 
-export type AppRouter = typeof appRouter;
+export type AppRouter = typeof appRouter

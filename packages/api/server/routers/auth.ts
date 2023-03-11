@@ -1,15 +1,17 @@
-import { procedure, router } from "../trpc";
-import * as z from 'zod'
-import database from "../../utils/database";
-import { hash } from "argon2";
-import { TRPCError } from "@trpc/server";
+import { TRPCError } from "@trpc/server"
+import { hash } from "argon2"
+import * as z from "zod"
+import database from "../../utils/database"
+import { procedure, router } from "../trpc"
 
 const auth = router({
   register: procedure
-    .input(z.object({
-      username: z.string(),
-      password: z.string()
-    }))
+    .input(
+      z.object({
+        username: z.string(),
+        password: z.string(),
+      }),
+    )
     .mutation(async ({ input }) => {
       const { username, password } = input
       const result = await database.account.create({
@@ -18,23 +20,23 @@ const auth = router({
           password: await hash(password),
           user: {
             create: {
-              timeZone: 'Australia/Sydney'
-            }
-          }
-        }
+              timeZone: "Australia/Sydney",
+            },
+          },
+        },
       })
-      if ( result )
+      if (result)
         return {
           status: 201,
           message: "Account created successfully",
           success: true,
-        };
+        }
       else
         throw new TRPCError({
           code: "INTERNAL_SERVER_ERROR",
           message: "An unexpected error occurred, please try again later.",
-        });
-    })
-});
+        })
+    }),
+})
 
-export { auth };
+export { auth }

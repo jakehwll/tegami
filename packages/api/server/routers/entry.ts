@@ -1,7 +1,7 @@
-import database from "../../utils/database";
-import { authedProcedure, router } from "../trpc";
-import * as z from 'zod'
-import { FilterVariantsType, FilterVariants } from "../../utils/filters";
+import * as z from "zod"
+import database from "../../utils/database"
+import { FilterVariants, FilterVariantsType } from "../../utils/filters"
+import { authedProcedure, router } from "../trpc"
 
 const FilterWhere: FilterVariantsType = {
   [FilterVariants.unread]: {
@@ -36,7 +36,7 @@ const FilterWhere: FilterVariantsType = {
       },
     },
   },
-};
+}
 
 const entry = router({
   list: authedProcedure
@@ -45,7 +45,7 @@ const entry = router({
         limit: z.number().min(1).max(100).nullish(),
         cursor: z.number().nullish(),
         filter: z.nativeEnum(FilterVariants).default(FilterVariants.unread),
-      })
+      }),
     )
     .output(
       z.object({
@@ -57,20 +57,20 @@ const entry = router({
             published: z.date(),
             url: z.string(),
             feed: z.object({
-              name: z.string()
+              name: z.string(),
             }),
             metadata: z.object({
               read: z.boolean(),
-              starred: z.boolean()
-            })
-          })
+              starred: z.boolean(),
+            }),
+          }),
         ),
         nextCursor: z.number().nullish(),
-      })
+      }),
     )
     .query(async ({ input }) => {
-      const limit = input.limit ?? 10;
-      const { cursor } = input;
+      const limit = input.limit ?? 10
+      const { cursor } = input
 
       const entries = await database.entry.findMany({
         take: limit + 1,
@@ -83,28 +83,27 @@ const entry = router({
         orderBy: {
           id: "asc",
         },
-      });
+      })
 
-      let nextCursor: typeof cursor | undefined = undefined;
+      let nextCursor: typeof cursor | undefined = undefined
       if (entries.length > limit) {
-        const nextItem = entries.pop();
-        nextCursor = nextItem!.id;
+        const nextItem = entries.pop()
+        nextCursor = nextItem!.id
       }
 
       return {
         entries: entries.map((v) => ({
           ...v,
-          metadata: 
-            v.metadata.length
-              ? v.metadata[0]
-              : {
-                  read: false,
-                  starred: false,
-                }
+          metadata: v.metadata.length
+            ? v.metadata[0]
+            : {
+                read: false,
+                starred: false,
+              },
         })),
         nextCursor,
-      };
+      }
     }),
-});
+})
 
 export { entry }

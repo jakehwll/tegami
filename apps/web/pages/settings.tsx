@@ -1,11 +1,11 @@
 import { Container, Typography } from "ui"
 
 const Settings = () => {
-  return <>
+  return (
     <Container>
       <Typography>Settings</Typography>
     </Container>
-  </>
+  )
 }
 
 export default Settings

@@ -1,8 +1,8 @@
-import { Button, Card } from "ui";
-import styles from './List.module.css'
-import { Fragment } from "react";
-import { trpc } from 'api/trpc'
-import { FilterVariants } from "api/utils/filters";
+import { trpc } from "api/trpc"
+import { FilterVariants } from "api/utils/filters"
+import { Fragment } from "react"
+import { Button, Card } from "ui"
+import styles from "./List.module.css"
 
 interface ListProps {
   filter: FilterVariants
@@ -12,18 +12,18 @@ const List = ({ filter }: ListProps) => {
   const { data, hasNextPage, fetchNextPage } = trpc.entry.list.useInfiniteQuery(
     {
       limit: 10,
-      filter: filter
+      filter: filter,
     },
     {
       getNextPageParam: (lastPage: any) => lastPage.nextCursor,
-    }
-  );
-  
+    },
+  )
+
   return data ? (
     <>
-      {data.pages.map((group:any, i:any) => (
+      {data.pages.map((group: any, i: any) => (
         <Fragment key={i}>
-          {group.entries.map((entry:any) => (
+          {group.entries.map((entry: any) => (
             <Card key={entry.id} {...entry} />
           ))}
         </Fragment>
@@ -34,7 +34,9 @@ const List = ({ filter }: ListProps) => {
         </footer>
       )}
     </>
-  ) : <></>
+  ) : (
+    <></>
+  )
 }
 
 export { List }

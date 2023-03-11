@@ -1,7 +1,7 @@
-import database from "./utils/database";
-import { verify } from "argon2";
-import CredentialsProvider from "next-auth/providers/credentials";
-import { AuthOptions, User } from "next-auth";
+import { verify } from "argon2"
+import { AuthOptions, User } from "next-auth"
+import CredentialsProvider from "next-auth/providers/credentials"
+import database from "./utils/database"
 
 export const authOptions: AuthOptions = {
   pages: {
@@ -20,7 +20,7 @@ export const authOptions: AuthOptions = {
           where: {
             username: credentials?.username,
           },
-        });
+        })
 
         if (
           account &&
@@ -28,12 +28,12 @@ export const authOptions: AuthOptions = {
         ) {
           const user: User = {
             id: account.id.toString(),
-          };
-          return user;
+          }
+          return user
         } else {
-          return null;
+          return null
         }
       },
     }),
   ],
-};
+}

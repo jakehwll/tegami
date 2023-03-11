@@ -1,23 +1,31 @@
-import styles from './Button.module.css'
+import styles from "./Button.module.css"
 
 type ButtonProps = {
-  startIcon?: React.ReactNode,
-  endIcon?: React.ReactNode,
-  children?: React.ReactNode,
-  type?: 'button' | 'submit',
+  startIcon?: React.ReactNode
+  endIcon?: React.ReactNode
+  children?: React.ReactNode
+  type?: "button" | "submit"
   onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void
 }
 
-const Button = ({ children, type, startIcon, endIcon, onClick }: ButtonProps) => {
-  return <>
-    <button className={styles.root} onClick={onClick} type={type ?? 'button'}>
-      <>
-        {startIcon && startIcon}
-        {children}
-        {endIcon && endIcon}
-      </>
-    </button>
-  </>;
-};
+const Button = ({
+  children,
+  type,
+  startIcon,
+  endIcon,
+  onClick,
+}: ButtonProps) => {
+  return (
+    <>
+      <button className={styles.root} onClick={onClick} type={type ?? "button"}>
+        <>
+          {startIcon && startIcon}
+          {children}
+          {endIcon && endIcon}
+        </>
+      </button>
+    </>
+  )
+}
 
 export { Button }
