@@ -3,10 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "dev": "node -e \"console.log('test')\"",
-    "debug": "ts-node ./main.ts",
-    "seed": "ts-node ./seed.ts",
-    "start": "next start"
+    "scrape": "ts-node ./main.ts",
+    "seed": "ts-node ./seed.ts"
   },
   "dependencies": {
     "database": "*",
