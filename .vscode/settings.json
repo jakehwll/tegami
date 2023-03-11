@@ -9,8 +9,5 @@
   "files.eol": "\n",
   "[javascriptreact][javascript][typescriptreact][typescript]": {
     "editor.tabSize": 2
-  },
-  "[scss]": {
-    "editor.tabSize": 2
   }
 }
