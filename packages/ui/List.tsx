@@ -1,11 +1,11 @@
-import { trpc } from "api/trpc"
-import { FilterVariants } from "api/utils/filters"
-import { Fragment } from "react"
-import { Button, Card } from "ui"
-import styles from "./List.module.css"
+import { trpc } from "api/trpc";
+import { FilterVariants } from "api/utils/filters";
+import { Fragment } from "react";
+import { Button, Entry } from "ui";
+import styles from "./List.module.css";
 
 interface ListProps {
-  filter: FilterVariants
+  filter: FilterVariants;
 }
 
 const List = ({ filter }: ListProps) => {
@@ -16,15 +16,15 @@ const List = ({ filter }: ListProps) => {
     },
     {
       getNextPageParam: (lastPage: any) => lastPage.nextCursor,
-    },
-  )
+    }
+  );
 
   return data ? (
     <>
       {data.pages.map((group: any, i: any) => (
         <Fragment key={i}>
           {group.entries.map((entry: any) => (
-            <Card key={entry.id} {...entry} />
+            <Entry key={entry.id} {...entry} />
           ))}
         </Fragment>
       ))}
@@ -36,7 +36,7 @@ const List = ({ filter }: ListProps) => {
     </>
   ) : (
     <></>
-  )
-}
+  );
+};
 
-export { List }
+export { List };
