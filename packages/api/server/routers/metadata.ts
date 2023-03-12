@@ -1,6 +1,6 @@
-import * as z from "zod"
-import database from "../../utils/database"
-import { authedProcedure, router } from "../trpc"
+import * as z from "zod";
+import database from "../../utils/database";
+import { authedProcedure, router } from "../trpc";
 
 const metadata = router({
   update: authedProcedure
@@ -9,12 +9,12 @@ const metadata = router({
         id: z.number(),
         read: z.boolean().optional(),
         starred: z.boolean().optional(),
-      }),
+      })
     )
     .mutation(async ({ ctx, input }) => {
-      const userId = ctx.session!.user!.id
+      const userId = ctx.session!.user!.id;
 
-      const { id: entryId, read, starred } = input
+      const { id: entryId, read, starred } = input;
 
       const result = await database.metadata.upsert({
         where: {
@@ -23,19 +23,22 @@ const metadata = router({
             entryId,
           },
         },
-        update: { read, starred },
+        update: {
+          read,
+          starred,
+        },
         create: {
           userId,
           entryId,
           read,
           starred,
         },
-      })
+      });
 
-      console.log(result)
+      console.log(result);
 
-      return result
+      return result;
     }),
-})
+});
 
-export { metadata }
+export { metadata };
