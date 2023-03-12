@@ -33,7 +33,7 @@ const Card = ({
   const utils = trpc.useContext()
   const metadataMutate = trpc.metadata.update.useMutation({
     async onSuccess() {
-      utils.entry.invalidate()
+      utils.entry.list.invalidate()
     },
   })
 

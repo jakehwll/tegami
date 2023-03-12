@@ -1,4 +1,4 @@
-import { Prisma } from "database"
+import { Prisma } from "database";
 
 export enum FilterVariants {
   "unread",
@@ -7,5 +7,5 @@ export enum FilterVariants {
 }
 
 export type FilterVariantsType = {
-  [key in FilterVariants]: Prisma.EntryWhereInput
-}
+  [key in FilterVariants]: Prisma.EntryWhereInput;
+};

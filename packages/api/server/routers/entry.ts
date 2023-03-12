@@ -1,42 +1,7 @@
-import * as z from "zod"
-import database from "../../utils/database"
-import { FilterVariants, FilterVariantsType } from "../../utils/filters"
-import { authedProcedure, router } from "../trpc"
-
-const FilterWhere: FilterVariantsType = {
-  [FilterVariants.unread]: {
-    OR: [
-      // find where there isn't `read` metadata.
-      {
-        metadata: {
-          some: {
-            read: false,
-          },
-        },
-      },
-      // find where there isn't any metadata at all.
-      {
-        metadata: {
-          none: {},
-        },
-      },
-    ],
-  },
-  [FilterVariants.starred]: {
-    metadata: {
-      some: {
-        starred: true,
-      },
-    },
-  },
-  [FilterVariants.history]: {
-    metadata: {
-      some: {
-        read: true,
-      },
-    },
-  },
-}
+import * as z from "zod";
+import database from "../../utils/database";
+import { FilterVariants, FilterVariantsType } from "../../utils/filters";
+import { authedProcedure, router } from "../trpc";
 
 const entry = router({
   list: authedProcedure
@@ -45,7 +10,7 @@ const entry = router({
         limit: z.number().min(1).max(100).nullish(),
         cursor: z.number().nullish(),
         filter: z.nativeEnum(FilterVariants).default(FilterVariants.unread),
-      }),
+      })
     )
     .output(
       z.object({
@@ -63,32 +28,52 @@ const entry = router({
               read: z.boolean(),
               starred: z.boolean(),
             }),
-          }),
+          })
         ),
         nextCursor: z.number().nullish(),
-      }),
+      })
     )
-    .query(async ({ input }) => {
-      const limit = input.limit ?? 10
-      const { cursor } = input
+    .query(async ({ ctx, input }) => {
+      const userId = ctx.session!.user!.id;
+      const limit = input.limit ?? 10;
+      const { cursor } = input;
+
+      const filterWhere: FilterVariantsType = {
+        [FilterVariants.unread]: {
+          OR: [
+            { metadata: { some: { userId, read: false } } },
+            { metadata: { none: { userId } } },
+          ],
+        },
+        [FilterVariants.starred]: {
+          metadata: { some: { userId, starred: true } },
+        },
+        [FilterVariants.history]: {
+          metadata: { some: { userId } },
+        },
+      };
 
       const entries = await database.entry.findMany({
         take: limit + 1,
         cursor: cursor ? { id: cursor } : undefined,
-        where: FilterWhere[input.filter],
+        where: filterWhere[input.filter],
         include: {
           feed: true,
-          metadata: true,
+          metadata: {
+            where: {
+              userId: userId,
+            },
+          },
         },
         orderBy: {
           id: "asc",
         },
-      })
+      });
 
-      let nextCursor: typeof cursor | undefined = undefined
+      let nextCursor: typeof cursor | undefined = undefined;
       if (entries.length > limit) {
-        const nextItem = entries.pop()
-        nextCursor = nextItem!.id
+        const nextItem = entries.pop();
+        nextCursor = nextItem!.id;
       }
 
       return {
@@ -102,8 +87,8 @@ const entry = router({
               },
         })),
         nextCursor,
-      }
+      };
     }),
-})
+});
 
-export { entry }
+export { entry };
