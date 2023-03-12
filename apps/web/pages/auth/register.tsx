@@ -1,30 +1,51 @@
-import { useState } from "react"
-import { Button, Container, Typography } from "ui"
-import { trpc } from "api/trpc"
+import { trpc } from "api/trpc";
+import { useRouter } from "next/router";
+import { useState } from "react";
+import { Button, Card, Container, Input, Typography } from "ui";
 
 const Register = () => {
-  const register = trpc.auth.register.useMutation()
+  const router = useRouter();
+  const register = trpc.auth.register.useMutation();
 
-  const [username, setUsername] = useState('')
-  const [password, setPassword] = useState('')
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
 
-  return <>
+  return (
     <Container>
       <Typography>Register</Typography>
-      <div>
-        <input placeholder={"Username"} type={'text'} onChange={(event) => setUsername(event.target.value)} />
-      </div>
-      <div>
-        <input placeholder={"Password"} type={'password'} onChange={(event) => setPassword(event.target.value)} />
-      </div>
-      <Button onClick={() => register.mutate({
-        username,
-        password
-      })}>
-        Register
-      </Button>
+      <Card>
+        <Input
+          placeholder={"Username"}
+          type={"text"}
+          onChange={(event) => setUsername(event.target.value)}
+        />
+        <Input
+          placeholder={"Password"}
+          type={"password"}
+          onChange={(event) => setPassword(event.target.value)}
+        />
+        <Input
+          placeholder={"Confirm Password"}
+          type={"password"}
+          onChange={(event) => setConfirmPassword(event.target.value)}
+        />
+        <Button
+          size={"large"}
+          onClick={async () => {
+            if (password !== confirmPassword) return;
+            const result = await register.mutateAsync({
+              username,
+              password,
+            });
+            if (result.status === 201) router.push("/auth/login");
+          }}
+        >
+          Register
+        </Button>
+      </Card>
     </Container>
-  </>
-}
+  );
+};
 
-export default Register
+export default Register;

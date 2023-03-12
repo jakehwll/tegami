@@ -1,0 +1,17 @@
+.root {
+  appearance: none;
+  border: none;
+  background: #14151b;
+  color: #ffffff;
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border-radius: 0.35rem;
+  outline: 1px solid #313248;
+  box-shadow: 0px 2px 2px 1px rgba(0, 0, 0, 0.05);
+  transition: 0.25s ease;
+}
+
+.root:focus {
+  outline: 1px solid #ffffff;
+  transition: 0.25s ease;
+}
