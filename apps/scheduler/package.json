@@ -7,7 +7,6 @@
     "seed": "ts-node ./seed.ts"
   },
   "dependencies": {
-    "classcat": "^5.0.4",
     "database": "*",
     "next": "^13.1.1",
     "react": "^18.2.0",
