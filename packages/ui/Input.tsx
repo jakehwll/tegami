@@ -14,12 +14,16 @@ const Input = ({ id, className, register, errors, ...props }: InputProps) => {
   return (
     <div>
       <input
-        className={cc([styles.root, className])}
+        className={cc([styles.root, className, { [styles.invalid]: err }])}
         {...register(id ?? "")}
         {...props}
         aria-invalid={err ? "true" : "false"}
       />
-      {err && <div role="alert">{err.message?.toString()}</div>}
+      {err && (
+        <div className={styles.alert} role="alert">
+          {err.message?.toString()}
+        </div>
+      )}
     </div>
   );
 };
