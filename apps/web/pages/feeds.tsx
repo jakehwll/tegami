@@ -1,8 +1,8 @@
-import { trpc } from "api/trpc"
-import { Button, Container, Table, Typography } from "ui"
+import { trpc } from "api/trpc";
+import { Button, Container, Table, Typography } from "ui";
 
 const Feeds = () => {
-  const { data: feeds } = trpc.feed.list.useQuery({})
+  const { data: feeds } = trpc.feed.list.useQuery({});
 
   return (
     <>
@@ -11,7 +11,7 @@ const Feeds = () => {
         {feeds && (
           <Table
             headings={{
-              id: "Id",
+              id: "ID",
               status: "Status",
               name: "Name",
               lastPublished: "Last Published",
@@ -28,7 +28,7 @@ const Feeds = () => {
         )}
       </Container>
     </>
-  )
-}
+  );
+};
 
-export default Feeds
+export default Feeds;

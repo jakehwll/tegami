@@ -16,9 +16,11 @@
     "typescript": "^4.5.2"
   },
   "dependencies": {
+    "api": "*",
+    "classcat": "^5.0.4",
     "date-fns": "^2.29.3",
     "date-fns-tz": "^2.0.0",
     "next": "^13.2.3",
-    "api": "*"
+    "react-hook-form": "^7.43.5"
   }
 }

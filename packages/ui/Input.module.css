@@ -11,6 +11,18 @@
   transition: 0.25s ease;
 }
 
+.invalid {
+  outline-color: #c52828;
+}
+
+.alert {
+  background: #c52828;
+  color: #ffffff;
+  padding: 0.5rem 1rem;
+  margin-top: 0.5rem;
+  border-radius: 0.25rem;
+}
+
 .root:focus {
   outline: 1px solid #ffffff;
   transition: 0.25s ease;
