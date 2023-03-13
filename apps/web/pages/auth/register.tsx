@@ -5,17 +5,27 @@ import { useForm } from "react-hook-form";
 import { Button, Card, Container, Input, Typography } from "ui";
 import * as z from "zod";
 
-const RegisterSchema = z.object({
-  username: z.string().min(3),
-  password: z.string().min(8),
-  confirmPassword: z.string(),
-});
+const RegisterSchema = z
+  .object({
+    username: z.string().min(3),
+    password: z.string().min(8),
+    confirmPassword: z.string(),
+  })
+  .refine((data) => data.password === data.confirmPassword, {
+    message: "Passwords don't match",
+    path: ["confirmPassword"],
+  });
 
 const Register = () => {
   const router = useRouter();
   const registerMutation = trpc.auth.register.useMutation();
 
-  const { register, handleSubmit } = useForm({
+  const {
+    register,
+    formState: { errors },
+    handleSubmit,
+  } = useForm({
+    mode: "onBlur",
     resolver: zodResolver(RegisterSchema),
   });
 
@@ -39,18 +49,21 @@ const Register = () => {
             placeholder={"Username"}
             type={"text"}
             register={register}
+            errors={errors}
             id={"username"}
           />
           <Input
             placeholder={"Password"}
             type={"password"}
             register={register}
+            errors={errors}
             id={"password"}
           />
           <Input
             placeholder={"Confirm Password"}
             type={"password"}
             register={register}
+            errors={errors}
             id={"confirmPassword"}
           />
           <Button size={"large"} type={"submit"}>

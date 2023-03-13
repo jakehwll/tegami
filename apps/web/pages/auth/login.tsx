@@ -5,12 +5,17 @@ import { Button, Card, Container, Input, Typography } from "ui";
 import * as z from "zod";
 
 const LoginSchema = z.object({
-  username: z.string(),
-  password: z.string(),
+  username: z.string().min(3),
+  password: z.string().min(8),
 });
 
 const Login = () => {
-  const { register, handleSubmit } = useForm({
+  const {
+    register,
+    formState: { errors },
+    handleSubmit,
+  } = useForm({
+    mode: "onBlur",
     resolver: zodResolver(LoginSchema),
   });
 
@@ -33,12 +38,14 @@ const Login = () => {
             placeholder={"Username"}
             type={"text"}
             register={register}
+            errors={errors}
             id={"username"}
           />
           <Input
             placeholder={"Password"}
             type={"password"}
             register={register}
+            errors={errors}
             id={"password"}
           />
           <Button fullWidth={true} size={"large"} type={"submit"}>
