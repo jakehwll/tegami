@@ -1,8 +1,8 @@
-
 import { zodResolver } from "@hookform/resolvers/zod";
 import { signIn } from "next-auth/react";
+import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
-import { Button, Card, Container, Input, Typography } from "ui";
+import { Alert, Button, Card, Container, Input, Typography } from "ui";
 import * as z from "zod";
 
 const LoginSchema = z.object({
@@ -20,9 +20,15 @@ const Login = () => {
     resolver: zodResolver(LoginSchema),
   });
 
+  const router = useRouter();
+  const { error } = router.query;
+
   return (
     <Container>
       <Typography>Login</Typography>
+      {error === "CredentialsSignin" && (
+        <Alert>The username or password you have entered is invalid.</Alert>
+      )}
       <Card>
         <form
           onSubmit={handleSubmit(({ username, password }) =>
