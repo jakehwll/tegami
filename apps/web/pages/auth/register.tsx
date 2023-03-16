@@ -34,16 +34,13 @@ const Register = () => {
       <Typography>Register</Typography>
       <Card>
         <form
-          onSubmit={handleSubmit(
-            async ({ username, password, confirmPassword }) => {
-              if (password !== confirmPassword) return;
-              const result = await registerMutation.mutateAsync({
-                username,
-                password,
-              });
-              if (result.status === 201) router.push("/auth/login");
-            }
-          )}
+          onSubmit={handleSubmit(async ({ username, password }) => {
+            const result = await registerMutation.mutateAsync({
+              username,
+              password,
+            });
+            if (result.status === 201) router.push("/auth/login");
+          })}
         >
           <Input
             placeholder={"Username"}
