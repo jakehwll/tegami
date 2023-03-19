@@ -1,9 +1,9 @@
 .root {
   appearance: none;
   padding: 1rem 2rem;
-  background: #191a23;
-  color: #ffffff;
-  border: 1px solid #2c2d3c;
+  background: var(--theme-800);
+  color: var(--theme-100);
+  border: 1px solid var(--theme-500);
   box-shadow: 0px 2px 2px 1px rgba(0, 0, 0, 0.05);
   border-radius: 0.45rem;
   max-width: 100%;

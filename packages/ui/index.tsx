@@ -5,6 +5,7 @@ export * from "./Container";
 export * from "./Dialog";
 export * from "./Entry";
 export * from "./Header";
+export * from "./Heading";
 export * from "./Input";
 export * from "./List";
 export * from "./Navigation";

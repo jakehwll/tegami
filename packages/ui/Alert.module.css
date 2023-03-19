@@ -1,6 +1,6 @@
 .root {
-  background: #c52828;
-  color: #ffffff;
+  background: var(--theme-danger);
+  color: var(--theme-100);
   padding: 0.5rem 1rem;
   margin-top: 0.5rem;
   border-radius: 0.25rem;

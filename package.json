@@ -2,6 +2,9 @@
   "name": "tegami",
   "version": "0.0.0",
   "private": true,
+  "prisma": {
+    "schema": "./packages/database/prisma/schema.prisma"
+  },
   "workspaces": [
     "apps/*",
     "packages/*"

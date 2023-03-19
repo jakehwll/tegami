@@ -1,8 +1,8 @@
 .root {
   display: inline-flex;
   border-radius: 0.45rem;
-  background: #21232e;
-  border: 1px solid #2c2d3c;
+  background: var(--theme-700);
+  border: 1px solid var(--theme-500);
   list-style: none;
   margin: 0;
   padding: 0;
@@ -10,22 +10,22 @@
 }
 
 .root li {
-  color: #858699;
+  color: var(--theme-300);
   position: relative;
   transition: 0.25s ease;
   border: 1px solid transparent;
 }
 
 .root li:hover {
-  color: #ffffff;
+  color: var(--theme-100);
   transition: 0.25s ease;
 }
 
 .root li.active {
-  background: #2c2d3c;
-  border-color: #2c2d3c;
+  background: var(--theme-500);
+  border-color: var(--theme-500);
   border-radius: 0.45rem;
-  color: #ffffff;
+  color: var(--theme-100);
   box-shadow: 0px 2px 2px 1px rgba(0, 0, 0, 0.05);
 }
 
@@ -36,7 +36,7 @@
   left: 100%;
   width: 1px;
   height: 50%;
-  background: #2c2d3c;
+  background: var(--theme-500);
   transform: translate(-0%, -50%);
 }
 
