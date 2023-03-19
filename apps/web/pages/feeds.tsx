@@ -3,7 +3,15 @@ import { createFeedSchema } from "api/server/schemas";
 import { trpc } from "api/trpc";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { Button, Container, Dialog, Input, Table, Typography } from "ui";
+import {
+  Button,
+  Container,
+  Dialog,
+  Heading,
+  Input,
+  Table,
+  Typography,
+} from "ui";
 
 const Feeds = () => {
   const utils = trpc.useContext();
@@ -23,7 +31,12 @@ const Feeds = () => {
 
   return (
     <Container>
-      <Typography>Feeds</Typography>
+      <Heading>
+        <Typography>Feeds</Typography>
+        <Button onClick={() => setEdit((edit) => !edit)} size={"large"}>
+          Create
+        </Button>
+      </Heading>
       <Dialog open={edit} setter={setEdit}>
         <form
           onSubmit={handleSubmit(async ({ name, feedUrl, siteUrl }) => {
@@ -62,7 +75,6 @@ const Feeds = () => {
           </Button>
         </form>
       </Dialog>
-      <Button onClick={() => setEdit((edit) => !edit)}>Create</Button>
       {feeds && (
         <Table
           headings={{
