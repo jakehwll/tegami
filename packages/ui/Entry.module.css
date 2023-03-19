@@ -1,7 +1,7 @@
 .root {
   border-radius: 0.45rem;
-  background: #191a23;
-  border: 1px solid #2c2d3c;
+  background: var(--theme-800);
+  border: 1px solid var(--theme-500);
   box-shadow: 0px 2px 2px 1px rgba(0, 0, 0, 0.05);
   margin: 1rem;
 }
@@ -28,9 +28,9 @@
 }
 
 .footer {
-  border-top: 1px solid #2c2d3c;
+  border-top: 1px solid var(--theme-500);
   border-radius: 0rem 0rem 0.45rem 0.45rem;
-  background: #21232e;
+  background: var(--theme-700);
   padding: 0.75rem 1.5rem;
   display: flex;
   justify-content: space-between;

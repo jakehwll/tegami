@@ -1,6 +1,6 @@
 .root {
-  background: #292a35;
-  border: 1px solid #313248;
+  background: var(--theme-600);
+  border: 1px solid var(--theme-400);
   color: inherit;
   padding: 0.5rem 0.75rem;
   border-radius: 0.45rem;
