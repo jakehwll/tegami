@@ -6,6 +6,7 @@ import { useForm } from "react-hook-form";
 import { Button, Container, Dialog, Input, Table, Typography } from "ui";
 
 const Feeds = () => {
+  const utils = trpc.useContext();
   const { data: feeds } = trpc.feed.list.useQuery({});
   const feedCreateMutation = trpc.feed.create.useMutation();
 
@@ -31,6 +32,8 @@ const Feeds = () => {
               siteUrl,
               feedUrl,
             });
+            utils.feed.list.invalidate();
+            setEdit(false);
           })}
         >
           <Input
