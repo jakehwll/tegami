@@ -2,7 +2,8 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-  provider = "prisma-client-js"
+  provider      = "prisma-client-js"
+  binaryTargets = ["native"]
 }
 
 datasource db {
@@ -65,6 +66,6 @@ model Metadata {
   read    Boolean @default(false)
   starred Boolean @default(false)
 
-  @@index([userId, entryId])
   @@unique([userId, entryId])
+  @@index([userId, entryId])
 }
