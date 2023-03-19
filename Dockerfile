@@ -17,6 +17,7 @@ WORKDIR /app
 COPY .gitignore .gitignore
 COPY --from=builder /app/out/json/ .
 COPY --from=builder /app/out/yarn.lock ./yarn.lock
+COPY --from=builder /app/packages/database/prisma/schema.prisma ./packages/database/prisma/schema.prisma
 RUN yarn install
 RUN npx prisma generate
 
