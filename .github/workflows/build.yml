@@ -5,7 +5,6 @@ name: Build Images
 
 on:
   push:
-    branches: [main, development]
   workflow_dispatch:
 
 jobs:
@@ -32,4 +31,4 @@ jobs:
           echo IMAGE_ID=$IMAGE_ID
           echo VERSION=$VERSION
           docker build --tag $IMAGE_ID:$VERSION .
-          docker push $IMAGE_ID:$VERSION
+          [[ "${{ github.ref }}" == 'refs/heads/main']] docker push $IMAGE_ID:$VERSION
