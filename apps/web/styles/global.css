@@ -23,6 +23,8 @@
   --theme-900-rgb: 20, 21, 27;
   --theme-danger: #c52828;
   --theme-danger-rgb: 197, 40, 40;
+  --theme-success: #4bb781;
+  --theme-success-rgb: 75, 183, 129;
 }
 
 body,
