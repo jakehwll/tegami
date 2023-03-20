@@ -33,6 +33,6 @@ jobs:
           docker build --tag $IMAGE_ID:$VERSION .
 
       - name: Publish
-        if: github.ref == 'refs/heads/dev'
+        if: github.ref == 'refs/heads/main'
         run: |
           docker push $IMAGE_ID:$VERSION
