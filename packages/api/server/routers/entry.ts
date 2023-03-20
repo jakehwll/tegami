@@ -40,16 +40,19 @@ const entry = router({
 
       const filterWhere: FilterVariantsType = {
         [FilterVariants.unread]: {
+          feed: { ownerId: userId },
           OR: [
             { metadata: { some: { userId, read: false } } },
             { metadata: { none: { userId } } },
           ],
         },
         [FilterVariants.starred]: {
-          metadata: { some: { userId, starred: true } },
+          feed: { ownerId: userId },
+          metadata: { some: { starred: true } },
         },
         [FilterVariants.history]: {
-          metadata: { some: { userId } },
+          feed: { ownerId: userId },
+          metadata: { some: { read: true } },
         },
       };
 
@@ -66,7 +69,7 @@ const entry = router({
           },
         },
         orderBy: {
-          id: "asc",
+          published: "desc",
         },
       });
 
