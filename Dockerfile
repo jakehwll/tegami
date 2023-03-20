@@ -1,5 +1,8 @@
-FROM node:alpine AS builder
-RUN apk add --no-cache libc6-compat
+ARG NODE_VERSION="18.12.1"
+ARG ALPINE_VERSION="3.17"
+
+FROM node:${NODE_VERSION}-alpine${ALPINE_VERSION} AS builder
+RUN apk add --no-cache libc6-compat openssl openssl-dev
 RUN apk update
 # Set working directory
 WORKDIR /app
@@ -8,7 +11,7 @@ COPY . .
 RUN turbo prune --scope=web --docker
 
 # Add lockfile and package.json's of isolated subworkspace
-FROM node:alpine AS installer
+FROM node:${NODE_VERSION}-alpine${ALPINE_VERSION} AS installer
 RUN apk add --no-cache libc6-compat
 RUN apk update
 WORKDIR /app
@@ -17,6 +20,7 @@ WORKDIR /app
 COPY .gitignore .gitignore
 COPY --from=builder /app/out/json/ .
 COPY --from=builder /app/out/yarn.lock ./yarn.lock
+COPY --from=builder /app/packages/database/prisma/schema.prisma ./packages/database/prisma/schema.prisma
 RUN yarn install
 RUN npx prisma generate
 
@@ -24,7 +28,7 @@ RUN npx prisma generate
 COPY --from=builder /app/out/full/ .
 RUN yarn turbo run build --filter=web...
 
-FROM node:alpine AS runner
+FROM node:${NODE_VERSION}-alpine${ALPINE_VERSION} AS runner
 WORKDIR /app
 
 # Don't run production as root
