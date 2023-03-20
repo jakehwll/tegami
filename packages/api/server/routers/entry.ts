@@ -48,11 +48,11 @@ const entry = router({
         },
         [FilterVariants.starred]: {
           feed: { ownerId: userId },
-          metadata: { some: { userId, starred: true } },
+          metadata: { some: { starred: true } },
         },
         [FilterVariants.history]: {
           feed: { ownerId: userId },
-          metadata: { some: { userId } },
+          metadata: { some: { read: true } },
         },
       };
 
