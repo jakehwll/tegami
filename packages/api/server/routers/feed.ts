@@ -1,3 +1,4 @@
+import { TRPCError } from "@trpc/server";
 import * as z from "zod";
 import database from "../../utils/database";
 import { createFeedSchema } from "../schemas";
@@ -15,8 +16,16 @@ const feed = router({
         })
       )
     )
-    .query(async () => {
-      const feed = await database.feed.findMany({});
+    .query(async ({ ctx }) => {
+      if (!ctx.session)
+        throw new TRPCError({
+          code: "UNAUTHORIZED",
+        });
+      const feed = await database.feed.findMany({
+        where: {
+          ownerId: ctx.session.user.id,
+        },
+      });
       return feed;
     }),
   create: authedProcedure
@@ -26,7 +35,12 @@ const feed = router({
         name: z.string(),
       })
     )
-    .mutation(async ({ input }) => {
+    .mutation(async ({ input, ctx }) => {
+      if (!ctx.session)
+        throw new TRPCError({
+          code: "UNAUTHORIZED",
+        });
+      console.log(ctx.session.user.id);
       const { name, feedUrl, siteUrl } = input;
       const feed = await database.feed.create({
         data: {
@@ -34,6 +48,7 @@ const feed = router({
           feedUrl,
           siteUrl,
           publishedAt: new Date(Date.now()),
+          ownerId: ctx.session.user.id,
         },
       });
       return feed;
