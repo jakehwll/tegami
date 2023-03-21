@@ -40,3 +40,6 @@ packages/database/prisma/dev.db
 
 # dist
 dist/
+
+# flake
+.direnv
