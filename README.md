@@ -14,7 +14,18 @@ Tegami enables you to set up RSS-feed scraping and reading.
 The recommended deployment route is Docker.
 
 ```yaml
-# TODO
+# docker-compose.yaml
+version: "3"
+services:
+  app:
+    image: ghcr.io/jakehwll/tegami
+    environment:
+      - NEXTAUTH_URL=http://CHANGE_ME
+      - NEXTAUTH_SECRET=CHANGE_ME
+      - DATABASE_URL="file:./prod.db"
+    ports:
+      - 3000:3000
+    restart: unless-stopped
 ```
 
 ## Contributions
