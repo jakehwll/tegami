@@ -2,9 +2,9 @@
   "name": "scheduler",
   "version": "0.0.0",
   "private": true,
+  "main": "./index.js",
   "scripts": {
-    "scrape": "ts-node ./main.ts",
-    "seed": "ts-node ./seed.ts"
+    "build": "tsc"
   },
   "dependencies": {
     "classcat": "^5.0.4",
@@ -13,7 +13,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "rss-parser": "^3.12.0",
-    "ts-node": "^10.9.1",
+    "tsup": "^6.7.0",
     "ui": "*"
   },
   "devDependencies": {

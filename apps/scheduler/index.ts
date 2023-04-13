@@ -1,5 +1,26 @@
-import Parser from "rss-parser"
-import database from "./util/database"
+import { PrismaClient } from "@prisma/client"
+import Parser from "rss-parser";
+
+const database = new PrismaClient({
+  log: [
+    {
+      emit: "stdout",
+      level: "query",
+    },
+    {
+      emit: "stdout",
+      level: "error",
+    },
+    {
+      emit: "stdout",
+      level: "info",
+    },
+    {
+      emit: "stdout",
+      level: "warn",
+    },
+  ],
+})
 
 const scrape = async () => {
   const parser = new Parser()
